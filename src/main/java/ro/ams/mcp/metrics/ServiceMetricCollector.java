@@ -31,11 +31,11 @@ public class ServiceMetricCollector {
   private final Counter msgCounter;
   private final Counter differentOriginCountryCodes;
   private final Counter differentDestinationCountryCodes;
-  private final Set<String> originCountryCodes=new HashSet<>();
-  private final Set<String> destinationCountryCodes=new HashSet<>();
+  private final Set<String> originCountryCodes = new HashSet<>();
+  private final Set<String> destinationCountryCodes = new HashSet<>();
 
   @Autowired
-  public ServiceMetricCollector(MSISDN msisdn, MeterRegistry meterRegistry){
+  public ServiceMetricCollector(MSISDN msisdn, MeterRegistry meterRegistry) {
     this.msisdn = msisdn;
     this.meterRegistry = meterRegistry;
     jsonFilesCounter = meterRegistry.counter("mcp.kpi.totalJSONFiles");
@@ -53,34 +53,34 @@ public class ServiceMetricCollector {
     jsonFilesCounter.increment();
   }
 
- @EventListener
-  public void handleRowRead(RowReadEvent event){
-    logger.debug("Received event={}",event);
+  @EventListener
+  public void handleRowRead(RowReadEvent event) {
+    logger.debug("Received event={}", event);
     rowsCounter.increment();
   }
 
   @EventListener
-  public void handleMessage(MessageReadEvent event){
-    logger.debug("Received event={}",event);
+  public void handleMessage(MessageReadEvent event) {
+    logger.debug("Received event={}", event);
     Message message = event.getMessage();
-    if(message instanceof CALLMessage){
+    if (message instanceof CALLMessage) {
       callsCounter.increment();
-    }else if(message instanceof MSGMessage){
+    } else if (message instanceof MSGMessage) {
       msgCounter.increment();
     }
 
-    String originCountry=msisdn.extractCountry(message.getOrigin());
-    String destinationCountry=msisdn.extractCountry(message.getDestination());
-    
-    synchronized (originCountryCodes){
-      if(!originCountryCodes.contains(originCountry)){
+    String originCountry = msisdn.extractCountry(message.getOrigin());
+    String destinationCountry = msisdn.extractCountry(message.getDestination());
+
+    synchronized (originCountryCodes) {
+      if (!originCountryCodes.contains(originCountry)) {
         originCountryCodes.add(originCountry);
         differentOriginCountryCodes.increment();
       }
     }
 
-    synchronized (destinationCountryCodes){
-      if(!destinationCountryCodes.contains(destinationCountry)){
+    synchronized (destinationCountryCodes) {
+      if (!destinationCountryCodes.contains(destinationCountry)) {
         destinationCountryCodes.add(destinationCountry);
         differentDestinationCountryCodes.increment();
       }

@@ -22,13 +22,13 @@ public class ApplicationMetricsAdapter {
   public Map<String, Object> getKpi() {
     return meterRegistry.getMeters().stream()
         .filter(meter -> meter.getId().getName().startsWith("mcp.kpi"))
-        .collect(Collectors.toMap(m->m.getId().getName(),m->m.measure().iterator().next().getValue()));
+        .collect(Collectors.toMap(m -> m.getId().getName(), m -> m.measure().iterator().next().getValue()));
   }
 
   public Map<String, Object> getMetrics() {
     return meterRegistry.getMeters().stream()
         .filter(meter -> meter.getId().getName().startsWith("mcp.json"))
-        .collect(Collectors.toMap(m->m.getId().getName(),m->m.measure().iterator().next().getValue()));
+        .collect(Collectors.toMap(m -> m.getId().getName(), m -> m.measure().iterator().next().getValue()));
   }
 
 

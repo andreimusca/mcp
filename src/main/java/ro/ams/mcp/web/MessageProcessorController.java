@@ -29,9 +29,9 @@ public class MessageProcessorController {
 
 
   @GetMapping("/{date}")
-  public ResponseEntity<String> process(@PathVariable String date){
+  public ResponseEntity<String> process(@PathVariable String date) {
     messageProcessorService.process(date);
-   return ResponseEntity.ok()
+    return ResponseEntity.ok()
         .cacheControl(CacheControl.maxAge(1, TimeUnit.DAYS))
         .build();
   }

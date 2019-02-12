@@ -8,14 +8,13 @@ import ro.ams.mcp.model.MSGMessage;
  */
 public class MissingFieldValidator {
 
-  public static boolean isValid(CALLMessage callMessage){
+  public static boolean isValid(CALLMessage callMessage) {
     return true;
   }
 
-  public static boolean isValid(MSGMessage callMessage){
+  public static boolean isValid(MSGMessage callMessage) {
     return true;
   }
-
 
 
 }

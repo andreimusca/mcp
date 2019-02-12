@@ -21,13 +21,13 @@ public class ApplicationMetricsController {
 
 
   @GetMapping("/kpi")
-  public Map<String,Object> kpi(){
-   return applicationMetrics.getKpi();
+  public Map<String, Object> kpi() {
+    return applicationMetrics.getKpi();
   }
 
   @GetMapping("/metrics")
-  public Map<String,Object> metrics(){
-   return applicationMetrics.getMetrics();
+  public Map<String, Object> metrics() {
+    return applicationMetrics.getMetrics();
   }
 
 }

@@ -46,7 +46,6 @@ public class JacksonMessageUnmarshallerTest {
   }
 
 
-
   @Test
   public void missingField() {
     String msg = "{\"message_type\": \"MSG\"}";

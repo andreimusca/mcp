@@ -5,12 +5,15 @@ package ro.ams.mcp.model;
  */
 
 public interface Message {
-  enum MESSAGE_TYPE{CALL,MSG}
+  MESSAGE_TYPE getMessage_type();
 
-   MESSAGE_TYPE getMessage_type();
-   Long getTimestamp();
-   Long getOrigin();
-   Long getDestination();
+  Long getTimestamp();
 
-   boolean hasMissingFields();
+  Long getOrigin();
+
+  Long getDestination();
+
+  boolean hasMissingFields();
+
+  enum MESSAGE_TYPE {CALL, MSG}
 }

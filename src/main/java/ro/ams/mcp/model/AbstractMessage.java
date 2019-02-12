@@ -15,7 +15,7 @@ import lombok.Data;
     @JsonSubTypes.Type(value = MSGMessage.class, name = "MSG")
 })
 @Data
-public class AbstractMessage implements Message{
+public class AbstractMessage implements Message {
   private MESSAGE_TYPE message_type;
   private Long timestamp;
   private Long origin;
@@ -23,6 +23,6 @@ public class AbstractMessage implements Message{
 
   @Override
   public boolean hasMissingFields() {
-    return timestamp==null || origin==null || destination==null;
+    return timestamp == null || origin == null || destination == null;
   }
 }

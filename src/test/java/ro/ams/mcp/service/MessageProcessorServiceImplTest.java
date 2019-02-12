@@ -38,6 +38,6 @@ public class MessageProcessorServiceImplTest {
 
     sut.process("someDate");
 
-    verify(eventPublisher,times(48)).publish(any(RowErrorEvent.class));
+    verify(eventPublisher, times(48)).publish(any(RowErrorEvent.class));
   }
 }

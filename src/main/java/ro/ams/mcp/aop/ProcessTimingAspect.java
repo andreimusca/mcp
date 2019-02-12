@@ -35,20 +35,20 @@ public class ProcessTimingAspect {
   @Around(value = "timedMethods()")
   @SneakyThrows
   public void logMethod(ProceedingJoinPoint jp) {
-    StopWatch stopWatch=new StopWatch();
+    StopWatch stopWatch = new StopWatch();
     stopWatch.start();
     try {
       jp.proceed(jp.getArgs());
       stopWatch.stop();
       long duration = stopWatch.getTotalTimeMillis();
-      if(jp.getTarget() instanceof MessageProcessorService) {
+      if (jp.getTarget() instanceof MessageProcessorService) {
         ProcessedJsonFileEvent event = new ProcessedJsonFileEvent((String) jp.getArgs()[0], duration);
         eventPublisher.publish(event);
       }
-    }finally {
-    if(stopWatch.isRunning()){
-      stopWatch.stop();
-    }
+    } finally {
+      if (stopWatch.isRunning()) {
+        stopWatch.stop();
+      }
     }
 
   }

@@ -9,9 +9,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class McpApplicationTests {
 
-	@Test
-	public void contextLoads() {
-	}
+  @Test
+  public void contextLoads() {
+  }
 
 }
 

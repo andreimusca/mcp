@@ -21,7 +21,7 @@ public class URLMessageSource implements MessageSource {
   @SneakyThrows
   @Override
   public InputStream read(String date) {
-    String url=String.format(baseUrl, date);
+    String url = String.format(baseUrl, date);
     return new URL(url).openStream();
   }
 }

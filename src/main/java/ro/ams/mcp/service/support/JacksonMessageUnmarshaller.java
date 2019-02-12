@@ -30,7 +30,7 @@ public class JacksonMessageUnmarshaller implements MessageUnmarshaller {
     try {
       message = objectMapper.readValue(source, AbstractMessage.class);
     } catch (IOException e) {
-      logger.error("Error unmarshalling source={} error={}",source,e.getMessage());
+      logger.error("Error unmarshalling source={} error={}", source, e.getMessage());
     }
 
     return Optional.ofNullable(message);

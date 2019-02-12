@@ -7,19 +7,19 @@ import lombok.Data;
  */
 @Data
 public class CALLMessage extends AbstractMessage {
-  public enum StatusCode {OK,KO}
-
-  public CALLMessage(){
-    setMessage_type(MESSAGE_TYPE.CALL);
-  }
-
   private Long duration;
   private StatusCode status_code;
   private String status_description;
 
+  public CALLMessage() {
+    setMessage_type(MESSAGE_TYPE.CALL);
+  }
 
   @Override
   public boolean hasMissingFields() {
-    return super.hasMissingFields()||duration==null|| status_code==null||status_description==null;
+    return super.hasMissingFields() || duration == null || status_code == null || status_description == null;
   }
+
+
+  public enum StatusCode {OK, KO}
 }

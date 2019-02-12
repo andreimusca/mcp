@@ -7,18 +7,18 @@ import lombok.Data;
  */
 @Data
 public class MSGMessage extends AbstractMessage {
-  public enum MessageStatus {DELIVERED,SEEN}
+  private String message_content;
+  private MessageStatus message_status;
 
-  public MSGMessage(){
+  public MSGMessage() {
     setMessage_type(MESSAGE_TYPE.MSG);
   }
 
-  private String  message_content;
-  private MessageStatus message_status;
-
-
   @Override
   public boolean hasMissingFields() {
-    return super.hasMissingFields()||message_content==null||message_status==null;
+    return super.hasMissingFields() || message_content == null || message_status == null;
   }
+
+
+  public enum MessageStatus {DELIVERED, SEEN}
 }

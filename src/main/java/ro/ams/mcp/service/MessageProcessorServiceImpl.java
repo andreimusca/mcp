@@ -43,24 +43,24 @@ public class MessageProcessorServiceImpl implements MessageProcessorService {
   public void process(String date) {
     //TODO maybe validate input format YYYYMMDD
 
-      InputStream inputStream = messageSource.read(date);
-      @Cleanup BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+    InputStream inputStream = messageSource.read(date);
+    @Cleanup BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-      String line;
-      while ((line = bufferedReader.readLine()) != null) {
-        eventPublisher.publish(new RowReadEvent(date,line));
-        Optional<Message> optionalMessage = messageUnmarshaller.unmarshall(line);
-        if (optionalMessage.isPresent()) {
-          Message message = optionalMessage.get();
-          if(message.hasMissingFields()){
-            eventPublisher.publish(new MissingFieldsEvent(date,line));
-          }else{
-            eventPublisher.publish(new MessageReadEvent(date, message));
-          }
+    String line;
+    while ((line = bufferedReader.readLine()) != null) {
+      eventPublisher.publish(new RowReadEvent(date, line));
+      Optional<Message> optionalMessage = messageUnmarshaller.unmarshall(line);
+      if (optionalMessage.isPresent()) {
+        Message message = optionalMessage.get();
+        if (message.hasMissingFields()) {
+          eventPublisher.publish(new MissingFieldsEvent(date, line));
         } else {
-          eventPublisher.publish(new RowErrorEvent(date, line));
+          eventPublisher.publish(new MessageReadEvent(date, message));
         }
+      } else {
+        eventPublisher.publish(new RowErrorEvent(date, line));
       }
     }
+  }
 
 }
