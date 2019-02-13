@@ -3,13 +3,14 @@ package ro.ams.mcp.metrics;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.util.StringUtils;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import ro.ams.mcp.events.MessageReadEvent;
@@ -25,10 +26,12 @@ import ro.ams.mcp.model.Message;
 @Component
 public class MessagesMetricCollector {
   private static final Logger logger = LoggerFactory.getLogger(MessagesMetricCollector.class);
-  private static final List<String> words = Arrays.asList("ARE", "YOU", "FINE", "HELLO", "NOT");
+
   private final Map<String, JsonFileMetric> nameMetricMap = new ConcurrentHashMap<>();
   private final MeterRegistry meterRegistry;
   private final MSISDN msisdn;
+  @Value("#{'${mcp.words}'.split(',')}")
+  private List<String> words = Collections.emptyList();
 
   @Autowired
   public MessagesMetricCollector(MSISDN msisdn, MeterRegistry meterRegistry) {
